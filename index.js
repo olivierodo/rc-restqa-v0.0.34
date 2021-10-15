@@ -23,5 +23,7 @@ app
       .json({ message: 'Ressource not found'})
   })
   .listen(PORT, () => {
-    console.log(`Server running on the host http://localhost:${PORT}`)
+    setInterval(() => {
+      console.log(`Server running on the host http://localhost:${PORT}`)
+    }, 500)
   })
