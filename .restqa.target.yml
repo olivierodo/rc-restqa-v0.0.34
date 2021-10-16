@@ -1,0 +1,66 @@
+version: 0.0.1
+metadata:
+  code: RESTQA-DEMO
+  name: "RestQA Sandbox demo"
+  description: this is the new restqa project
+environments:
+  - name: local
+    default: false
+    plugins:
+      - name: "@restqa/restqapi"
+        config:
+          url: http://localhost:8000
+      - name: "@restqa/http-mock-plugin"
+      - name: "@restqa/postgres-mock-plugin"
+        config:
+          mock: true
+          data: "./tests/data/db.sql"
+    outputs:
+      - type: html
+        enabled: true
+  - name: dev-environment
+    default: false
+    plugins:
+      - name: "@restqa/restqapi"
+        config:
+          url: https://dev.startup.com
+      - name: "@restqa/postgres-mock-plugin"
+        config:
+          connection:
+            host: 123.45.312.22
+            port: 4567
+            user: dev-env
+            password: P@ssw0rd
+    outputs:
+      - type: html
+        enabled: true
+      - type: 'discord'
+        enabled: true
+        config: 
+          url: !env-var DISCORD_WEBHOOK_URL
+          onlyFailed: false
+          showErrors: false
+          reportUrl: 'http://example.com/test-report/{uuid}'
+          username: 'bot-name'
+  - name: testing-environement
+    default: true
+    plugins:
+      - name: "@restqa/restqapi"
+        config:
+          url: https://testing.startup.com
+      - name: "@restqa/postgres-mock-plugin"
+        config:
+          connection:
+            host: 123.45.312.22
+            port: 4567
+            user: test-env
+            password: P@ssw0rd
+    outputs:
+      - type: html
+        enabled: true
+      - type: 'slack'
+        enabled: true
+        config: 
+          url: !env-var SLACK_WEBHOOK_URL
+          onlyFailed: false
+          showErrors: false
