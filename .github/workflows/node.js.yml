@@ -18,7 +18,7 @@ jobs:
       run: "echo 'Run RestQA'"
   deploy:
     needs: build
-    name: "Testing environement deployment"
+    name: "Deployment"
     runs-on: ubuntu-latest
     steps:
     - name: RestQA testing
