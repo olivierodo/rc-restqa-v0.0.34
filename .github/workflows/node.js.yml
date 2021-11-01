@@ -11,25 +11,28 @@ on:
 
 jobs:
   build:
-    name: " RESTQA Testing"
+    name: " RESTQA Unit Testing"
     runs-on: ubuntu-latest
     steps:
     - name: RestQA testing
       run: "echo 'Run RestQA'"
   deploy:
     needs: build
+    name: "Testing environement deployment"
     runs-on: ubuntu-latest
     steps:
     - name: RestQA testing
       run: "echo 'Run RestQA'"
   E2E:
     needs: deploy
+    name: "RestQA Integration testing"
     runs-on: ubuntu-latest
     steps:
     - name: RestQA testing
       run: "echo 'Run RestQA'"
   performance:
     needs: E2E
+    name: "Artillery Performance testing"
     runs-on: ubuntu-latest
     steps:
     - name: RestQA testing
